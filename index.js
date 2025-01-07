@@ -93,7 +93,7 @@ let Musi = {
 function getRandomIndex(playlist){
   if (playlist[1] === 1){
     return Math.floor(Math.random() * classDatadata.playlist.length);
-  } else if (playlist === 2) {
+  } else if (playlist[2] === 2) {
     return Math.floor(Math.random() * classDatadata.playlist.length);
   } else {
     throw new Error("Invalid section number. Please enter 1 or 2 for a random index.")
@@ -109,7 +109,7 @@ app.get("/", (request, response) => {
 })
 
 app.get("/randomplaylist",(resquest, response)=> {
-  response.json(Musi.userData.playlists[getRandomIndex])
+  response.json(Musi.userData.playlists[Math.floor(Math.random() * Musi.userData.playlists.length)])
 })
 
 app.get("/playlistName",(request, response)=>{
@@ -117,5 +117,5 @@ app.get("/playlistName",(request, response)=>{
 })
 
 app.use((request, res, next)=>{
-  res.send("404 page")
+  res.status.send("404 page")
 })
