@@ -104,18 +104,28 @@ app.listen(3000, () => {
   console.log("Server running")
 })
 
+app.use((request,response,next)=>{
+  console.log(request.method + " /" + request.url)
+  next();
+})
+
 app.get("/", (request, response) => {
-  response.send("Welcome to Musi")
+  response.status(200).send("Welcome to Musi")
+})
+
+app.get("/docs", (request,response) => {
+  response.send("Go to /randomplaylist or /playlistName to learn about the Playlists")
 })
 
 app.get("/randomplaylist",(resquest, response)=> {
-  response.json(Musi.userData.playlists[Math.floor(Math.random() * Musi.userData.playlists.length)])
+  response.status(200).json(Musi.userData.playlists[Math.floor(Math.random() * Musi.userData.playlists.length)])
 })
 
+
 app.get("/playlistName",(request, response)=>{
-  response.send(Musi.userData.playlists.playlistName)
+  response.status(200).json(Musi.userData.playlists.playlistName)
 })
 
 app.use((request, res, next)=>{
-  res.status.send("404 page")
+  res.status(404).send("404 page")
 })
